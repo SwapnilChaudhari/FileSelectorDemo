@@ -5,15 +5,18 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.zip.Inflater;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.ImageView;
@@ -59,6 +62,7 @@ protected int lastSelected;
 		initData();
 		initUI();
 		createViewDynamically();
+		Toast.makeText(getApplicationContext(), "Press long on file to open it.", Toast.LENGTH_LONG).show();
 	}
 
 	
@@ -156,16 +160,26 @@ protected int lastSelected;
 						File selectedFile=arFiles[pos];
 						
 						
-						v.setBackgroundColor(Color.parseColor("#ff83bdd5"));
+						highliteSelectedFile(v,pos);
 						
-						
-						
-						if(lastSelected!=-1)
-							{
-							llFileholder.getChildAt(lastSelected).setBackgroundColor(Color.parseColor("#ff000000"));
-							}
-						lastSelected=pos;
+						//openSelectedFile(pos);
 						Toast.makeText(getApplicationContext(), selectedFile.getName(), Toast.LENGTH_LONG).show();
+					}
+					
+
+					
+				});
+				v.setOnLongClickListener(new OnLongClickListener()
+				{
+					
+					@Override
+					public boolean onLongClick(View v) 
+					{
+						int pos=Integer.parseInt(v.getTag().toString());
+						
+						highliteSelectedFile(v,pos);
+						openSelectedFile(pos);
+						return true;
 					}
 				});
 			}
@@ -193,6 +207,34 @@ protected int lastSelected;
 				
 		}
 
+	}
+	
+	protected void highliteSelectedFile(View v,int pos)
+	{
+		
+		v.setBackgroundColor(Color.parseColor("#ff83bdd5"));
+		
+		
+		
+		if(lastSelected!=-1)
+			{
+			llFileholder.getChildAt(lastSelected).setBackgroundColor(Color.parseColor("#ff000000"));
+			}
+		lastSelected=pos;
+		
+	}
+
+
+
+	private void openSelectedFile(int pos) 
+	{
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+	    Uri data = Uri.fromFile(arFiles[pos]);
+
+	    intent.setDataAndType(data, "*/*");
+
+	    startActivity(intent);
+		
 	}
 
 }
