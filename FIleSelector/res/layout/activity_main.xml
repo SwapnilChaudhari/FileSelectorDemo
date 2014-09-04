@@ -6,7 +6,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    android:background="#000000" >
 
     <!-- <Button
         android:id="@+id/root"
@@ -17,9 +18,10 @@
         android:text="Button" /> -->
 
     <ScrollView 
+        android:layout_below="@+id/ibParent"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginBottom="90dp">
+        >
          <LinearLayout 
              android:id="@+id/llFileholder"
              android:layout_width="fill_parent"
@@ -29,30 +31,30 @@
     </ScrollView>
     <ImageButton 
         android:id="@+id/ibParent"
-        android:layout_alignParentBottom="true"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@drawable/up"/>
       <TextView
         android:id="@+id/tvCurrFolder"
         android:layout_width="wrap_content"
-        android:layout_height="80dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_alignTop="@+id/ibParent"
         android:layout_toRightOf="@+id/ibParent"
-        
+        android:paddingLeft="5dp"
         android:text="Curr Folder"
-        android:textAppearance="?android:attr/textAppearanceMedium" /> 
+        android:textAppearance="?android:attr/textAppearanceMediumInverse" /> 
         
       <ImageButton 
         android:id="@+id/ibHome"
         android:layout_alignTop="@+id/ibParent"
         
         android:layout_alignParentRight="true"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:background="@drawable/home"/>
     
 </RelativeLayout>

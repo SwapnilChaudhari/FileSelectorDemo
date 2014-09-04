@@ -13,20 +13,20 @@
 
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@drawable/folder"
             android:layout_margin="2dp"
             android:clickable="true"
              />
         
 
-        <LinearLayout
+       <!--  <LinearLayout
             android:layout_width="1px"
             android:layout_height="fill_parent"
             android:layout_marginRight="5dp"
             android:background="#99ff00" >
-        </LinearLayout>
+        </LinearLayout> -->
 
         <TextView
             android:id="@+id/tvFolder"
@@ -39,11 +39,11 @@
             android:textAppearance="?android:attr/textAppearanceInverse" />
     </LinearLayout>
 
-    <LinearLayout
+    <!-- <LinearLayout
         android:layout_height="1px"
         android:layout_width="fill_parent"
         android:layout_marginRight="5dp"
         android:background="#99ff00" >
-    </LinearLayout>
+    </LinearLayout> -->
 
 </LinearLayout>

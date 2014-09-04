@@ -8,10 +8,14 @@ import java.util.zip.Inflater;
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,16 +23,37 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity 
 {
-	File rootDir;
-	File currFolder;
-	File[] arFiles;
-	TextView textView1;
-	LayoutInflater inflater;
+	private File rootDir;
+	private File currFolder;
+	private File[] arFiles;
+	private TextView textView1;
+	private LayoutInflater inflater;
 	private LinearLayout llFileholder;
+	
+private OnTouchListener onTouchListener=new OnTouchListener() {
+		
+		@Override
+		public boolean onTouch(View v, MotionEvent event)
+		{
+			switch (event.getAction())
+			{
+			case MotionEvent.ACTION_DOWN:
+				v.setBackgroundColor(Color.parseColor("#ff83bdd5"));
+				break;
+			
+			default:
+				v.setBackgroundColor(Color.parseColor("#ff000000"));
+				break;
+			}event.getAction();
+			return false;
+		}
+	};
+protected int lastSelected;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 
 		initData();
@@ -67,6 +92,8 @@ public class MainActivity extends Activity
 				if(!currFolder.getAbsolutePath().equals(rootDir.getAbsolutePath()))
 				{
 					currFolder=currFolder.getParentFile();
+					
+					lastSelected=-1;
 					//arFiles=currFolder.listFiles();
 					createViewDynamically();
 				}
@@ -83,7 +110,8 @@ public class MainActivity extends Activity
 				
 					currFolder=rootDir;
 				
-					findViewById(R.id.ibParent).setEnabled(false);
+					lastSelected=-1;
+					//findViewById(R.id.ibParent).setEnabled(false);
 					//currFolder=currFolder.getParentFile();
 					//arFiles=currFolder.listFiles();
 					createViewDynamically();
@@ -117,7 +145,7 @@ public class MainActivity extends Activity
 			{
 				((ImageView)v.findViewById(R.id.icon)).setBackgroundResource(R.drawable.file);
 				
-				((ImageView)v.findViewById(R.id.icon)).setOnClickListener(new OnClickListener() 
+				v.setOnClickListener(new OnClickListener() 
 				{
 					
 					@Override
@@ -127,19 +155,32 @@ public class MainActivity extends Activity
 						
 						File selectedFile=arFiles[pos];
 						
+						
+						v.setBackgroundColor(Color.parseColor("#ff83bdd5"));
+						
+						
+						
+						if(lastSelected!=-1)
+							{
+							llFileholder.getChildAt(lastSelected).setBackgroundColor(Color.parseColor("#ff000000"));
+							}
+						lastSelected=pos;
 						Toast.makeText(getApplicationContext(), selectedFile.getName(), Toast.LENGTH_LONG).show();
 					}
 				});
 			}
 			else
 			{
-				((ImageView)v.findViewById(R.id.icon)).setOnClickListener(new OnClickListener() 
+				v.setOnTouchListener(onTouchListener);
+				v.setOnClickListener(new OnClickListener() 
 				{
 					
 					@Override
 					public void onClick(View v) 
 					{
 						int pos=Integer.parseInt(v.getTag().toString());
+						
+						lastSelected=-1;
 						
 						currFolder=arFiles[pos];
 						
