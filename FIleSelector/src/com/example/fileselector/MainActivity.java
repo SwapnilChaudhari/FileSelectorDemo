@@ -130,8 +130,6 @@ protected int lastSelected;
 
 	private void createViewDynamically() 
 	{
-		if(!findViewById(R.id.ibParent).isEnabled()) findViewById(R.id.ibParent).setEnabled(true);
-		
 		arFiles=currFolder.listFiles();
 		
 		((TextView)findViewById(R.id.tvCurrFolder)).setText(currFolder.getName());
