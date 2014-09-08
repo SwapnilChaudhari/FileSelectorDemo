@@ -9,13 +9,7 @@
     tools:context=".MainActivity"
     android:background="#000000" >
 
-    <!-- <Button
-        android:id="@+id/root"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="Button" /> -->
+    
 
     <ScrollView 
         android:layout_below="@+id/ibParent"
